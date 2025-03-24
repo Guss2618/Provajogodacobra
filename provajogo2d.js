@@ -43,6 +43,7 @@ class Cobra extends Entidade {
    constructor(x, y, largura, altura) {
        super(x, y, largura, altura)
    }
+   
    atualizar() {
        if (teclasPressionadas.KeyW) {
            this.y -= 7
@@ -56,6 +57,7 @@ class Cobra extends Entidade {
        this.verificarColisaoBorda();
        
    }
+
    verificarColisao(comida){
        if(
            this.x < comida.x + comida.largura &&
@@ -65,7 +67,9 @@ class Cobra extends Entidade {
        ){ 
            this.#houveColisao(comida);
        }
+
     }
+
        verificarColisaoBorda() {
         if (
             this.x < 0 || 
@@ -82,7 +86,6 @@ class Cobra extends Entidade {
         }        
     }
 
-
     #houveColisao(comida){
        comida.x = Math.random()*canvas.width-10
        comida.y = Math.random()*canvas.height-10
@@ -97,24 +100,23 @@ class Comida extends Entidade {
    desenhar (){
     ctx.fillStyle = 'green';
     ctx.fillRect(this.x, this.y, this.largura, this.altura)
-}
-}
+    }
 
+}
 const cobra = new Cobra(100, 200, 20, 20)
 const comida = new Comida()
 
 function loop() {
+   ctx.fillStyle = 'green';
+   ctx.font = '24px Arial';
    ctx.clearRect(0, 0, canvas.width, canvas.height);
    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
    cobra.desenhar()
    cobra.atualizar()
    comida.desenhar()
    cobra.verificarColisao(comida)
-   ctx.fillStyle = 'white';
-   ctx.font = '20px Arial';
    ctx.fillText(`Pontuação: ${pontuação}`, 10, 20);
    ctx.fillText(`Pontuação Máxima: ${pontuacaoMaxima}`, 10, 50);
-
    requestAnimationFrame(loop);
 }
 loop()
